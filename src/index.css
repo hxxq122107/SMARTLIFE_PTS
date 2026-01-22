@@ -1,13 +1,351 @@
-body {
+/* ================= RESET ================= */
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+html,
+body,
+#root {
+  height: 100%;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ================= THEME VARIABLES ================= */
+:root {
+  --bg-light: #f0f9ff;
+  --bg-dark: #0f172a;
+
+  --card-light: #ffffff;
+  --card-dark: #1e293b;
+
+  --text-light: #1f2937;
+  --text-dark: #e5e7eb;
+
+  --text-muted-light: #6b7280;
+  --text-muted-dark: #9ca3af;
+
+  --primary: #10b981;
+  --primary-dark: #059669;
+  --primary-light: #d1fae5;
+
+  --border-light: #e5e7eb;
+  --border-dark: #374151;
+}
+
+/* ================= APP WRAPPER ================= */
+.app {
+  min-height: 100vh;
+  background: var(--bg-light);
+  color: var(--text-light);
+}
+
+.app.dark {
+  background: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+/* ================= NAVBAR ================= */
+.navbar {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  padding: 20px 32px;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-brand {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 16px;
+}
+
+.navbar-links a,
+.navbar-links button {
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  border: none;
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* ================= HEADER ================= */
+.header-section {
+  text-align: center;
+  padding: 72px 24px 32px; /* jarak dari navbar */
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.header-section h1 {
+  font-size: 2.4rem;
+  margin-bottom: 20px;
+}
+
+.header-section p {
+  font-size: 1.1rem;
+  margin-top: 8px;
+  line-height: 1.7;
+  color: var(--text-muted-light);
+}
+
+.app.dark .header-section p {
+  color: var(--text-muted-dark);
+}
+
+/* ================= LAYOUT ================= */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 48px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+/* ================= CARD ================= */
+.card {
+  background: var(--card-light);
+  border-radius: 16px;
+  padding: 28px;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.app.dark .card {
+  background: var(--card-dark);
+  border-color: var(--border-dark);
+}
+
+.card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+}
+
+.card p {
+  margin-bottom: 12px;
+  color: var(--text-muted-light);
+}
+
+.app.dark .card p {
+  color: var(--text-muted-dark);
+}
+
+/* ================= DASHBOARD ================= */
+.dashboard-info {
+  margin-bottom: 20px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 12px;
+  background: #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--primary),
+    var(--primary-dark)
+  );
+}
+
+.dashboard-button {
+  margin-top: 20px;
+}
+
+/* ================= BUTTON ================= */
+button {
+  background: var(--primary);
+  border: none;
+  padding: 12px 24px;
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* ================= CHECKLIST ================= */
+.checklist label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+}
+
+/* ================= ASSISTANT ================= */
+.assistant {
+  border-left: 5px solid var(--primary);
+  background: linear-gradient(
+    135deg,
+    var(--primary-light),
+    #ffffff
+  );
+}
+
+.app.dark .assistant {
+  background: linear-gradient(
+    135deg,
+    rgba(16, 185, 129, 0.15),
+    var(--card-dark)
+  );
+}
+
+/* ================= PAGE SPACING ================= */
+.about-page h2 {
+  margin-bottom: 24px;
+}
+
+.about-page p,
+.about-page ul,
+.about-page input,
+.about-page label {
+  margin-bottom: 16px;
+  display: block;
+}
+
+/* History cards spacing */
+.about-page .card {
+  margin-bottom: 16px;
+}
+
+/* ================= INTERACTIVE EFFECT ================= */
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+}
+
+button {
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background: var(--primary-dark);
+  transform: scale(1.03);
+}
+
+/* ================= CHECKLIST ANIMATION ================= */
+.checklist input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.checklist input[type="checkbox"]:checked {
+  transform: scale(1.2);
+}
+
+/* ASSISTANT - sequential message */
+.ai-line {
+  opacity: 0;
+  transform: translateX(-8px);
+  animation: aiFade 0.45s ease forwards;
+  margin-bottom: 10px;
+}
+
+@keyframes aiFade {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* memperhalus container assistant (opsional) */
+.card.assistant {
+  padding-top: 20px;
+}
+
+/* ================= AI CHAT STYLE ================= */
+.chat-box {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.chat-bubble {
+  max-width: 90%;
+  padding: 12px 16px;
+  border-radius: 16px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  animation: chatFade 0.4s ease;
+}
+
+/* AI bubble */
+.chat-bubble.ai {
+  background: #ecfdf5;
+  border-left: 4px solid var(--primary);
+  align-self: flex-start;
+}
+
+/* Typing indicator */
+.chat-bubble.typing {
+  width: 60px;
+  display: flex;
+  gap: 6px;
+  background: #ecfdf5;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat-bubble.typing span {
+  width: 6px;
+  height: 6px;
+  background: var(--primary);
+  border-radius: 50%;
+  animation: typingDot 1.4s infinite ease-in-out both;
+}
+
+.chat-bubble.typing span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.chat-bubble.typing span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typingDot {
+  0%, 80%, 100% { opacity: 0; }
+  40% { opacity: 1; }
+}
+
+@keyframes chatFade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
