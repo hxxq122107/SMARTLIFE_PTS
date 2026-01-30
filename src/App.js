@@ -34,7 +34,7 @@ function App() {
     localStorage.getItem("darkMode") === "true"
   );
 
-  // Load / reset data
+  // ================= LOAD / RESET DATA =================
   useEffect(() => {
     if (persistData) {
       setAir(Number(localStorage.getItem("air")) || 0);
@@ -53,14 +53,14 @@ function App() {
     }
   }, [persistData]);
 
-  // Save settings
+  // ================= SAVE SETTINGS =================
   useEffect(() => {
     localStorage.setItem("darkMode", darkMode);
     localStorage.setItem("persistData", persistData);
     localStorage.setItem("target", target);
   }, [darkMode, persistData, target]);
 
-  // Save data if persist ON
+  // ================= SAVE CURRENT DATA =================
   useEffect(() => {
     if (persistData) {
       localStorage.setItem("air", air);
@@ -71,6 +71,41 @@ function App() {
       localStorage.setItem("jalan", jalan);
     }
   }, [persistData, air, olahraga, tidur, sarapan, meditasi, jalan]);
+
+  // ================= SAVE + AUTO CLEAN HISTORY =================
+  useEffect(() => {
+    if (!persistData) return;
+
+    const today = new Date().toISOString().split("T")[0];
+    let history = JSON.parse(localStorage.getItem("history")) || [];
+
+    // 🔄 AUTO CLEAN: 1 tanggal = 1 data (ambil terakhir)
+    const cleaned = {};
+    history.forEach(h => {
+      cleaned[h.date] = h;
+    });
+    history = Object.values(cleaned);
+
+    const todayData = {
+      date: today,
+      air,
+      olahraga,
+      tidur,
+      sarapan,
+      meditasi,
+      jalan,
+    };
+
+    const indexToday = history.findIndex(h => h.date === today);
+
+    if (indexToday !== -1) {
+      history[indexToday] = todayData;
+    } else {
+      history.push(todayData);
+    }
+
+    localStorage.setItem("history", JSON.stringify(history));
+  }, [air, olahraga, tidur, sarapan, meditasi, jalan, persistData]);
 
   return (
     <Router>
